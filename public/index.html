@@ -7,54 +7,52 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <style>
-  
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
     /* Animations */
     .fade-in {
-        animation: fadeIn 2s ease-in-out;
+      animation: fadeIn 2s ease-in-out;
     }
     @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-
     .slide-in {
-        animation: slideIn 1.5s ease-out;
+      animation: slideIn 1.5s ease-out;
     }
     @keyframes slideIn {
-        from {
-            transform: translateY(-50px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
-
     .pulse {
-        animation: pulse 2s infinite;
+      animation: pulse 2s infinite;
     }
     @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
     }
-</style>
+  </style>
 </head>
 <body class="bg-black text-white font-sans">
   <!-- Navbar -->
   <header class="flex justify-between items-center py-4 px-8 bg-black text-white">
     <div class="logo-container slide-in">
       <img src="./CYRILPHONOTS LOGO-modified.png" alt="Cyril Photos Logo" class="w-16 h-16 object-contain pulse">
-  </div>
+    </div>
     <nav class="space-x-8 text-lg font-medium">
       <a href="" class="hover:text-yellow-400">Portfolio</a>
       <a href="" class="hover:text-yellow-400">About</a>
@@ -62,15 +60,15 @@
     </nav>
     <div class="flex space-x-4">
       <a href="https://www.facebook.com/share/184zfjj9mw/?mibextid=LQQJ4d" target="_blank" class="text-xl hover:text-blue-500">
-          <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-facebook-f"></i>
       </a>
       <a href="https://instagram.com/__cyrilphotos?igshid=NTc4MTIwNjQ2YQ==https://instagram.com/your-page" target="_blank" class="text-xl hover:text-pink-500">
-          <i class="fab fa-instagram"></i>
+        <i class="fab fa-instagram"></i>
       </a>
       <a href="https://wa.me/+233543591986" target="_blank" class="text-xl hover:text-green-500">
-          <i class="fab fa-whatsapp"></i>
+        <i class="fab fa-whatsapp"></i>
       </a>
-  </div>
+    </div>
   </header>
 
   <!-- Contact Section -->
@@ -86,7 +84,7 @@
 
       <!-- Contact Form -->
       <div class="w-full lg:w-1/2">
-        <form id="contactForm" action="/send-email" method="POST" class="space-y-4">
+        <form id="contactForm" class="space-y-4">
           <div class="flex space-x-4">
             <input type="text" name="firstName" placeholder="First Name *" required
               class="w-1/2 p-3 text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
@@ -107,5 +105,33 @@
       </div>
     </div>
   </section>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          window.location.href = "/success.html";
+        } else {
+          alert("Failed to send email. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An unexpected error occurred.");
+      }
+    });
+  </script>
 </body>
 </html>
