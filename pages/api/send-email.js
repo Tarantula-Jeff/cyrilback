@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     console.log("Received data:", req.body); // Log received data
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: "smtp.gmail.com",
       auth: {
         user: "cyrillisk889@gmail.com", // Your Gmail
         pass: "pvkb xzln xrse tmzc",    // Your Gmail App Password
