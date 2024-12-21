@@ -11,39 +11,41 @@
   <style>
     /* Animations */
     .fade-in {
-      animation: fadeIn 2s ease-in-out;
+        animation: fadeIn 2s ease-in-out;
     }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
+
     .slide-in {
-      animation: slideIn 1.5s ease-out;
+        animation: slideIn 1.5s ease-out;
     }
     @keyframes slideIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
+
     .pulse {
-      animation: pulse 2s infinite;
+        animation: pulse 2s infinite;
     }
     @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
     }
   </style>
 </head>
@@ -60,13 +62,13 @@
     </nav>
     <div class="flex space-x-4">
       <a href="https://www.facebook.com/share/184zfjj9mw/?mibextid=LQQJ4d" target="_blank" class="text-xl hover:text-blue-500">
-        <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-facebook-f"></i>
       </a>
       <a href="https://instagram.com/__cyrilphotos?igshid=NTc4MTIwNjQ2YQ==https://instagram.com/your-page" target="_blank" class="text-xl hover:text-pink-500">
-        <i class="fab fa-instagram"></i>
+          <i class="fab fa-instagram"></i>
       </a>
       <a href="https://wa.me/+233543591986" target="_blank" class="text-xl hover:text-green-500">
-        <i class="fab fa-whatsapp"></i>
+          <i class="fab fa-whatsapp"></i>
       </a>
     </div>
   </header>
@@ -78,8 +80,8 @@
       <div class="w-full lg:w-1/2 mb-10 lg:mb-0">
         <h2 class="text-5xl font-bold mb-4">Contact</h2>
         <p class="text-lg mb-4">Cyril Photos operates independently under its own brand.</p>
-        <p class="text-lg mb-2">Email: <a href="mailto:info@mysite.com" class="hover:text-yellow-400">cyrillisk889@gmail.com</a></p>
-        <p class="text-lg mb-6">Phone: <a href="tel:123-456-7890" class="hover:text-yellow-400">+233543591986</a></p>
+        <p class="text-lg mb-2">Email: <a href="mailto:cyrillisk889@gmail.com" class="hover:text-yellow-400">cyrillisk889@gmail.com</a></p>
+        <p class="text-lg mb-6">Phone: <a href="tel:+233543591986" class="hover:text-yellow-400">+233543591986</a></p>
       </div>
 
       <!-- Contact Form -->
@@ -107,11 +109,13 @@
   </section>
 
   <script>
-    document.getElementById("contactForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
+    const form = document.getElementById("contactForm");
 
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const formObject = Object.fromEntries(formData.entries());
 
       try {
         const response = await fetch("/api/send-email", {
@@ -119,11 +123,12 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(formObject),
         });
 
         if (response.ok) {
-          window.location.href = "/success.html";
+          alert("Email sent successfully!");
+          window.location.href = "/success.html"; // Redirect to success page
         } else {
           alert("Failed to send email. Please try again.");
         }
